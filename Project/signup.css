@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
-* {
+* 
+{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -71,10 +72,10 @@ form .input-box span.details {
     transition: all 0.3s ease;
 }
 
-.user-details .input-box input:focus,
-.user-details .input-box input:valid {
-    border-color: #0e5a18;
-}
+.user-details .input-box input.valid { 
+    border-width: 2px; 
+    border-color:green; 
+} 
 
 form .gender-details .gender-title {
     font-size: 20px;
@@ -137,7 +138,7 @@ form .button input {
 }
 
 form .button input:hover {
-    background-color: #2c7da0;
+    background-color: #42c86c;
 
     color: rgb(18, 57, 16);
 }
@@ -147,8 +148,53 @@ form .button input:hover {
     opacity: 1;
     font-style: italic;
 }
+.error
+{
+ color:red;
+ font-size: 10px;
+}
 
-@media(max-width: 584px) {
+ /* i button */
+        .i_but {
+            position: relative;
+            display: inline-block;
+            left:280px;
+            bottom:35px;
+        }
+
+        /* Tooltip text */
+        .i_but .tooltiptext {
+            visibility: hidden;
+            width: 350px;
+            height:auto;
+            background-color: dimgray;
+            color: #fff;
+            text-align: none;
+            border-radius: 6px;
+            padding: 15px 3px;
+            margin:0px;
+
+            /* Position the tooltip text */
+            position: absolute;
+            z-index: 1;
+            bottom: 80%;
+            left: 50%;
+            margin-left: 20px;
+            margin-bottom:10px;
+
+            /* Fade in tooltip */
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+
+        /* Show the tooltip text when you mouse over the tooltip container */
+        .i_but:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+@media(max-width:  584px) {
     .container {
         max-width: 100%;
     }
@@ -172,52 +218,9 @@ form .button input:hover {
     }
 }
 
-@media(max-width: 459px) {
+@media(max-width:459px) {
     .container .content .category {
         flex-direction: column;
     }
 }
 
-.error
-{
- color:red;}
-
- /* i button */
-        .i_but {
-            position: relative;
-            display: inline-block;
-            left:280px;
-            bottom:35px;
-        }
-
-        /* Tooltip text */
-        .i_but .tooltiptext {
-            visibility: hidden;
-            width: 350px;
-            height:auto;
-            background-color: dimgray;
-            color: #fff;
-           text-align: none;
-            border-radius: 6px;
-            padding: 15px 3px;
-            margin:0px;
-
-            /* Position the tooltip text */
-            position: absolute;
-            z-index: 1;
-           bottom: 80%;
-           // left: 50%;
-            margin-left: 20px;
-            margin-bottom:10px;
-
-            /* Fade in tooltip */
-            opacity: 0;
-            transition: opacity 0.4s;
-        }
-
-
-        /* Show the tooltip text when you mouse over the tooltip container */
-        .i_but:hover .tooltiptext {
-            visibility: visible;
-            opacity: 1;
-        }

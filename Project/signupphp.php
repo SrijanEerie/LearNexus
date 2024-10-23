@@ -19,11 +19,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mobile = $_POST["phone"];
     $birthdate = $_POST["date"];
     $gender = $_POST["gender"];
-    $address = $_POST["adr"];
+    $address = $_POST["cnf"];
     $password = $_POST["pwd"];
 
     // Use prepared statement to prevent SQL injection
-    $stmt = $conn->prepare("INSERT INTO registration (fullname, email, mobile, birthdate, gender,address, pass) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO registration (fullname, email, mobile, birthdate, gender,cnf, pass) VALUES (?, ?, ?, ?, ?, ?, ?)");
     
     // Hash the password
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);

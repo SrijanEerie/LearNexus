@@ -3,12 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LearNexus | Registration</title>
     <link rel="stylesheet" href="signup.css">
-    <meta name="viewport" content="width=device-width, initial-scale=2">
 </head>
 
 <body>
+    <!--button class="dar"></button-->
     <div class="container">
         <div class="title">Registration</div>
         <div class="content">
@@ -17,50 +18,55 @@
                 <!-- Form fields for user details -->
                 <div class="user-details">
                     <div class="input-box">
-                        <span class="details">Full Name</span>
-                        <input type="text" placeholder="Enter your name" name="fname" required>
+                        <label for="details">Full Name</label>
+                        <input type="text" placeholder="Enter your name" name="fname" id="fname" aria-required="true" oninput="validateFirstName()">
+                        <span id="nameError" class="error"></span>
                     </div>
+
                     <div class="input-box">
-                        <span class="details">D.O.B</span>
-                        <input type="date" name="date" required>
+                        <label for="details">D.O.B</label>
+                        <input type="date" name="date" id="dob" onchange="validateDOB()">
+                        <span id="dobError" class="error"></span>
                     </div>
+
                     <div class="input-box">
-                        <span class="details">E-mail Address</span>
-                        <input type="email" placeholder="Enter your email" name="mail" required>
+                        <label for="details">E-mail </label>
+                        <input type="email" placeholder="Enter your email" name="mail" id="email" required oninput="validateEmail()">
+                        <span id="emailError" class="error"></span>
                     </div>
+
                     <div class="input-box">
-                        <span class="details">Mobile Number</span>
-                        <input type="number" placeholder="Enter your number" name="phone" id="phone" required>
+                        <label for="details">Mobile Number</label>
+                        <input type="tel" placeholder="Enter your Mobile Number" name="phone" id="phone" required oninput="validatePhone()">
                         <span id="phoneError" class="error"></span>
                     </div>
-                  <div class="input-box">
 
-                           
-                        <span class="details">Password</span>
-                        
-                        <input type="text" placeholder="Enter your password" name="pwd" id="pwd" required>
-                      
-                            <div class="i_but">
-                            <a href="#">ℹ</a>
-                            <span class="tooltiptext">
-
-Password consist Atleast 8 characters(With Atleast one uppercase,lowercase,Numbers and Special Characters)<br>
-eg: LearNexus@123.</span>
+                    <div class="input-box">   
+                        <label for="details">Password</label>
+                        <input type="password" placeholder="Enter your password" name="pwd" id="pwd" autocomplete="off" required oninput="validatePassword()">
+                        <div class="i_but">
+                             <a href="#">ℹ</a>
+                             <span class="tooltiptext">
+                                 Password consist Atleast 8 characters(With Atleast one uppercase,lowercase,Numbers and Special Characters)<br>
+                                  eg: LearNexus@123.</span>
                         </div>
+                        <span id="pwdError" class="error"></span> 
+                    </div>
 
-                        <span id="pwdError" class="error"></span>
-                      
-                    </div>
                     <div class="input-box">
-                        <span class="details">Address</span>
-                        <input type="text" placeholder="Enter your address" name="adr" required>
+                        <label for="details">Confirm Password</label>
+                        <input type="password" placeholder="Confirm Password" name="cnf" id="cnfpass" autocomplete="off" required onchange="validateConfirmPassword()">
+                        <span id="cnfError" class="error"></span>
                     </div>
+                     
                 </div>
+
                 <div class="gender-details">
-                    <input type="radio" name="gender" id="dot-1" value="Male">
-                    <input type="radio" name="gender" id="dot-2" value="Female">
-                    <input type="radio" name="gender" id="dot-3" value="Other">
-                    <span class="gender-title">Gender</span>
+                    <label for="gender-title">Gender</label>
+                    <input type="radio" name="gender" id="dot-1" value="Male" required onchange="validateGender()">
+                    <input type="radio" name="gender" id="dot-2" value="Female" required onchange="validateGender()" >
+                    <input type="radio" name="gender" id="dot-3" value="Other" required onchange="validateGender()" >
+                    <span class="error" id="genderError"></span> 
                     <div class="category">
                         <label for="dot-1">
                             <span class="dot one"></span>
@@ -76,6 +82,7 @@ eg: LearNexus@123.</span>
                         </label>
                     </div>
                 </div>
+
                 <div class="button">
                     <!-- Submit button -->
                     <input type="submit" class="btn" value="Submit">
@@ -85,29 +92,133 @@ eg: LearNexus@123.</span>
     </div>
 
     <script>
-        function validateForm() {
-            var phone = document.getElementById('phone').value.trim();
-            var pwd = document.getElementById('pwd').value.trim();
+         function addValidClass(element) { 
+            element.classList.add('valid'); 
+        } 
+ 
+        function removeValidClass(element) { 
+            element.classList.remove('valid'); 
+        } 
 
-            // Reset error messages
-            document.getElementById('phoneError').innerHTML = "";
-            document.getElementById('pwdError').innerHTML = "";
+        function validateFirstName() { 
+            const firstName = document.getElementById('fname').value; 
+            const errorElement = document.getElementById('nameError'); 
+            const inputElement = document.getElementById('fname'); 
+            const namePattern = /^[A-Z][a-z \s ]+$/; 
+ 
+            if (!namePattern.test(firstName)) { 
+                errorElement.textContent = 'Full name must start with an uppercase letter followed by lowercase letters.'; 
+                removeValidClass(inputElement); 
+                return false; 
+            } 
+            errorElement.textContent = ''; 
+            addValidClass(inputElement); 
+            return true; 
+        } 
 
-            var isValid = true;
+        function validateDOB() { 
+            const dob = document.getElementById('dob').value; 
+            const errorElement = document.getElementById('dobError'); 
+            const inputElement = document.getElementById('dob'); 
+ 
+            if(dob.trim() === '') { 
+                errorElement.textContent = 'Enter valid date .'; 
+                removeValidClass(inputElement); 
+                return false; 
+            } 
+            errorElement.textContent = ''; 
+            addValidClass(inputElement); 
+            return true; 
+        } 
 
-            // Validate mobile number (should be 10 digits)
-            if (!(/^\d{10}$/.test(phone))) {
-                document.getElementById('phoneError').innerHTML = "Mobile number should be of 10 digits";
-                isValid = false;
-            }
+        function validateEmail() { 
+            const email = document.getElementById('email').value; 
+            const errorElement = document.getElementById('emailError'); 
+            const inputElement = document.getElementById('email'); 
+            const emailPattern = /^\w+@\w+\.com$/; 
+ 
+            if (!emailPattern.test(email)) { 
+                errorElement.textContent = 'Enter a valid email address.'; 
+                removeValidClass(inputElement); 
+                return false; 
+            } 
+            errorElement.textContent = ''; 
+            addValidClass(inputElement); 
+            return true; 
+        } 
 
-            // Validate password
-            if (!/(?=.*\d)(?=.*[a-z])(?=.*[!@#$%^&*])(?=.*[A-Z]).{8,}/.test(pwd)) {
-                document.getElementById('pwdError').innerHTML = "Invalid password ";
-                isValid = false;
-            }
+        function validatePhone() { 
+            const phone = document.getElementById('phone').value; 
+            const errorElement = document.getElementById('phoneError'); 
+            const inputElement = document.getElementById('phone'); 
+            const phonePattern = /^\d{10}$/; 
+ 
+            if (!phonePattern.test(phone)) { 
+                errorElement.textContent = 'Enter a valid 10-digit phone number.'; 
+                removeValidClass(inputElement); 
+                return false; 
+            } 
+            errorElement.textContent = ''; 
+            addValidClass(inputElement); 
+            return true; 
+        } 
 
-            return isValid;
+        function validatePassword() { 
+            const password = document.getElementById('pwd').value; 
+            const errorElement = document.getElementById('pwdError'); 
+            const inputElement = document.getElementById('pwd');
+            const passpattern= /^(?=.*\d)(?=.*[a-z])(?=.*[!@#$%^&*])(?=.*[A-Z]).{8,}$/;
+ 
+            if (!passpattern.test(password) ) { 
+                errorElement.textContent = 'Invalid Password.'; 
+                removeValidClass(inputElement); 
+                return false; 
+            } 
+            errorElement.textContent = ''; 
+            addValidClass(inputElement); 
+            return true; 
+        } 
+
+        function validateConfirmPassword() { 
+            const confirmPassword = document.getElementById('cnfpass').value; 
+            const password = document.getElementById('pwd').value; 
+            const errorElement = document.getElementById('cnfError'); 
+            const inputElement = document.getElementById('cnfpass'); 
+ 
+            if (confirmPassword != password ) { 
+                errorElement.textContent = 'Passwords do not match.'; 
+                removeValidClass(inputElement); 
+                return false; 
+            } 
+            errorElement.textContent = ''; 
+            addValidClass(inputElement); 
+            return true; 
+        } 
+        
+        function validateGender() { 
+            const gender = document.querySelector('input[name="gender"]:checked'); 
+            const errorElement = document.getElementById('genderError'); 
+ 
+            if (!gender) { 
+                errorElement.textContent = 'Please select a gender.'; 
+                return false; 
+            } 
+            errorElement.textContent = ''; 
+            return true; 
+        } 
+       
+        function validateForm() { 
+            const isFirstNameValid = validateFirstName(); 
+            const isEmailValid = validateEmail(); 
+            const isPhoneValid = validatePhone(); 
+            const isDOBValid = validateDOB(); 
+            const isPasswordValid = validatePassword(); 
+            const isConfirmPasswordValid = validateConfirmPassword(); 
+            const isGenderValid = validateGender(); 
+ 
+            return isFirstNameValid && isEmailValid &&  
+                   isPhoneValid &&isDOBValid  && isPasswordValid &&  
+                   isConfirmPasswordValid && isGenderValid; 
         }
     </script>
 </body>
